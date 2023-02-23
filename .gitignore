@@ -28,3 +28,4 @@ docs/Offerta*
 
 .vscode
 db.sqlite3
+DjangoREST/__pycache__/settings.cpython-38.pyc
