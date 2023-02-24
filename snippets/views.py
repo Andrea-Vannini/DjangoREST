@@ -1,48 +1,56 @@
 from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse # JsonResponse is used to return JSON data
-from django.views.decorators.csrf import csrf_exempt # csrf_exempt is used to allow POST requests from clients that won't have a CSRF token
-from rest_framework.parsers import JSONParser # JSONParser is used to parse JSON data
-from snippets.models import Snippet
-from snippets.serializers import SnippetSerializer
+from django.views.decorators.csrf import csrf_exempt # csrf_exempt is used to exempt a view from CSRF protection
+
+from rest_framework import status # status is used to return HTTP status codes
+from rest_framework.decorators import api_view # api_view is used to wrap API views
+from rest_framework.response import Response # Response is used to return a Response object
+
+from snippets.models import Snippet # Import the Snippet model
+from snippets.serializers import SnippetSerializer # Import the SnippetSerializer
 
 
-# List all code snippets, or create a new snippet.
 @csrf_exempt
-def snippet_list(request):
+# Type of request that the view will accept
+@api_view(['GET', 'POST'])
+# List all code snippets, or create a new snippet
+def snippet_list(request, format=None):
 	if request.method == 'GET':
 		snippets = Snippet.objects.all()
 		serializer = SnippetSerializer(snippets, many=True)
-		return JsonResponse(serializer.data, safe=False)
+
+		return Response(serializer.data)
 
 	elif request.method == 'POST':
-		data = JSONParser().parse(request)
-		serializer = SnippetSerializer(data=data)
+		serializer = SnippetSerializer(data=request.data)
+
 		if serializer.is_valid():
 			serializer.save()
-			return JsonResponse(serializer.data, status=201)
-		return JsonResponse(serializer.errors, status=400)
+			return Response(serializer.data, status=status.HTTP_201_CREATED)
+		return Response(serializer.errors, stats = status.HTTP_400_BAD_REQUEST)
 
 
-# Retrieve, update or delete a code snippet.
 @csrf_exempt
-def snippet_detail(request, pk):
+@api_view(['GET', 'PUT', 'DELETE'])
+# Retrieve, update or delete a code snippet
+def snippet_detail(request, pk, format=None):
 	try:
 		snippet = Snippet.objects.get(pk=pk)
 	except Snippet.DoesNotExist:
-		return HttpResponse(status=404)
+		return Response(status=status.HTTP_404_NOT_FOUND)
 
 	if request.method == 'GET':
 		serializer = SnippetSerializer(snippet)
-		return JsonResponse(serializer.data)
+
+		return Response(serializer.data)
 
 	elif request.method == 'PUT':
-		data = JSONParser().parse(request)
-		serializer = SnippetSerializer(snippet, data=data)
+		serializer = SnippetSerializer(snippet, data=request.data)
+
 		if serializer.is_valid():
 			serializer.save()
-			return JsonResponse(serializer.data)
-		return JsonResponse(serializer.errors, status=400)
+			return Response(serializer.data)
+		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 	elif request.method == 'DELETE':
 		snippet.delete()
-		return HttpResponse(status=204)
+		return Response(status=status.HTTP_204_NO_CONTENT)
