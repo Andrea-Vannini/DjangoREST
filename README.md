@@ -2,6 +2,8 @@
 
 A small introductory project for [Django REST framework](https://www.django-rest-framework.org/), a powerful and flexible toolkit for building Web APIs.
 
+*Server not included in this project (for obvious reasons)*
+
 # What is an API?
 
 Accodring to [IBM](https://www.ibm.com/cloud/learn/api), an API (Application Programming Interface), is a set of defined rules that enable different applications to communicate with each other. It acts as an intermediary layer that processes data transfers between systems, letting companies open their application data and functionality to external third-party developers, business partners, and internal departments within their companies.
