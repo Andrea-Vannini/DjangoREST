@@ -14,7 +14,7 @@ According to [IBM](https://www.ibm.com/topics/rest-apis), a REST (REpresentation
 
 Some APIs, such as [SOAP](https://www.soapui.org/) or [XML-RPC](https://en.wikipedia.org/wiki/XML-RPC), impose a strict framework on developers. But REST APIs can be developed using virtually any programming language and support a variety of data formats.
 
-# REST design principles - also known as architectural constraints.
+# REST design principles - aka architectural constraints
 
 - The REST API should ensure that the same piece of data, such as the name or email address of a user, belongs to only one uniform resource identifier ([URI](https://en.wikipedia.org/wiki/Uniform_Resource_Identifier)), and should contain every piece of information that the client might need.
 
