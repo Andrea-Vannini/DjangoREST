@@ -6,11 +6,11 @@ from snippets.models import Snippet, LANGUAGE_CHOICES, STYLE_CHOICES
 
 
 class UserSerializer(serializers.ModelSerializer):
-	snippets = serializers.PrimaryKeyRelatedField(many=True, queryset=Snippet.objects.all())
+	snippets = serializers.HyperlinkedRelatedField(many=True, view_name='snippet-detail', read_only=True)
 
 	class Meta:
 		model = User
-		fields = ['id', 'username', 'snippets']
+		fields = ['url', 'id', 'username', 'snippets']
 
 
 class SnippetSerializer(serializers.ModelSerializer):
@@ -21,6 +21,7 @@ class SnippetSerializer(serializers.ModelSerializer):
 	language = serializers.ChoiceField(choices=LANGUAGE_CHOICES, default='python')
 	style = serializers.ChoiceField(choices=STYLE_CHOICES, default='friendly')
 	owner = serializers.ReadOnlyField(source='owner.username')
+	highlight = serializers.HyperlinkedIdentityField(view_name='snippet-highlight', format='html')
 
 	# Create and return a new "Snippet" instance, given the validated data
 	def create(self, validated_data):
@@ -39,4 +40,4 @@ class SnippetSerializer(serializers.ModelSerializer):
 	# Define the fields that will be serialized
 	class Meta:
 		model = Snippet
-		fields = ('id', 'title', 'code', 'linenos', 'language', 'style', 'owner')
+		fields = ['url', 'id', 'highlight', 'owner', 'title', 'code', 'linenos', 'language', 'style']

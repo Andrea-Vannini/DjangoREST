@@ -10,15 +10,26 @@ from rest_framework import mixins, generics, permissions
 from rest_framework.status import HTTP_201_CREATED, HTTP_204_NO_CONTENT, HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND # same as status.HTTP_code, but for specific status codes for simplicitys sake
 from rest_framework.decorators import api_view # api_view is used to wrap API views
 from rest_framework.response import Response # Response is used to return a Response object
+from rest_framework.reverse import reverse # reverse is used to return a fully-qualified URL given a view name and optional parameters
+from rest_framework import renderers # renderers is used to renderers for HTML and Browsable API
 
 from snippets.models import Snippet
 from snippets.permissions import IsOwnerOrReadOnly
 from snippets.serializers import UserSerializer, SnippetSerializer
 
 
+@api_view(['GET'])
+def api_root(request, format=None):
+	return Response({
+		'users': reverse('user-list', request=request, format=format),
+		'snippets': reverse('snippet-list', request=request, format=format)
+	})
+
+
 class UserList(generics.ListAPIView):
 	queryset = User.objects.all()
 	serializer_class = UserSerializer
+
 
 class UserDetail(generics.RetrieveAPIView):
 	queryset = User.objects.all()
@@ -44,6 +55,7 @@ def snippet_list(request, format=None):
 			return Response(serializer.data, status=HTTP_201_CREATED)
 		return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
 
+
 # List all snippets, or create a new snippet with class based view and mixins
 class SnippetListMixin(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
 	queryset = Snippet.objects.all()
@@ -55,6 +67,7 @@ class SnippetListMixin(mixins.ListModelMixin, mixins.CreateModelMixin, generics.
 	def post(self, request, *args, **kwargs):
 		return self.create(request, *args, **kwargs)
 
+
 # List all snippets, or create a new snippet with class based view and generics
 class SnippetListGeneric(generics.ListCreateAPIView):
 	queryset = Snippet.objects.all()
@@ -63,6 +76,7 @@ class SnippetListGeneric(generics.ListCreateAPIView):
 
 	def perform_create(self, serializer):
 		serializer.save(owner=self.request.user)
+
 
 @csrf_exempt
 @api_view(['GET', 'PUT', 'DELETE'])
@@ -112,12 +126,11 @@ class SnippetDetailGeneric(generics.RetrieveUpdateDestroyAPIView):
 	serializer_class = SnippetSerializer
 	permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
 
-	# Use the pygments library to create a highlighted HTML representation of the code snippet
-	def save(self, *args, **kwargs):
-		lexer = get_lexer_by_name(self.language)
-		linenos = 'table' if self.linenos else False
-		options = {'title': self.title} if self.title else {}
-		formatter = HtmlFormatter(style=self.style, linenos=linenos, full=True, **options)
-		self.highlighted = highlight(self.code, lexer, formatter)
 
-		super().save(*args, **kwargs)
+class SnippetHighlight(generics.GenericAPIView):
+	queryset = Snippet.objects.all()
+	renderer_classes = [renderers.StaticHTMLRenderer]
+
+	def get(self, request, *args, **kwargs):
+		snippet = self.get_object()
+		return Response(snippet.highlighted)
