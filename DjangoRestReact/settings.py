@@ -11,9 +11,13 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
+STATIC_DIR = os.path.join(BASE_DIR, 'assets')
+MEDIA_DIR = os.path.join(BASE_DIR, 'media')
 
 
 # Quick-start development settings - unsuitable for production
@@ -25,6 +29,7 @@ SECRET_KEY = 'django-insecure-qc)ei@)6&wz^w@ik%@7jq&qzu@lxbpe+!-3(_6rio_jv4@fbw(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# Specify the allowed hosts for your application, or allow all wit the wildcard '*'
 ALLOWED_HOSTS = [
     'localhost',
 ]
@@ -40,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'home',
     'api',
     'unit',
 ]
@@ -64,7 +70,7 @@ ROOT_URLCONF = 'DjangoRestReact.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [TEMPLATE_DIR],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

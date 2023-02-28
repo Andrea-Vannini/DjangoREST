@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+
+		<title>
+			{% block title_block %}
+			{% endblock %}
+		</title>
+
+		{% block stylesheets %}
+		{% endblock stylesheets %}
+
+		{% block headscript_block %}
+		{% endblock %}
+	</head>
+
+	<body>
+		<div class="container-fluid">
+			{% block body_block %}
+			{% endblock %}
+		</div>
+		
+		{% block scripts %}
+		{% endblock scripts %}
+
+		{% block extrascripts %}
+		{% endblock extrascripts %}
+	</body>
+</html>
