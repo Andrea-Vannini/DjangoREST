@@ -1,6 +1,6 @@
 # Django REST framework
 
-A small introductory, ready to use, project for [Django REST framework](https://www.django-rest-framework.org/), a powerful and flexible toolkit for building Web APIs.
+A small introductory project for [Django REST framework](https://www.django-rest-framework.org/), a powerful and flexible toolkit for building Web APIs.
 
 *Database not included in this project (for obvious reasons)*
 

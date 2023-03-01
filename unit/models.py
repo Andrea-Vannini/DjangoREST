@@ -28,7 +28,7 @@ class Unit(models.Model):
 
 class System(models.Model):
 	name = models.CharField(max_length=20, unique=True, verbose_name='name')
-	units = models.ManyToManyField(Unit, blank=True, verbose_name='units')
+	units = models.ManyToManyField(Unit, blank=True, related_name="systemsforunit", verbose_name='units')
 	author = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
 
 	class Meta:
