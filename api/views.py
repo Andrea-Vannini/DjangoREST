@@ -6,10 +6,12 @@ from rest_framework.reverse import reverse
 from rest_framework.response import Response
 
 from api.permissions import IsAuthorOrReadOnly
-from api.serializers import SymbolSerializer, SymbolDetailSerializer, UnitSerializer, UnitDetailSerializer, SystemSerializer, SystemDetailSerializer
+from api.serializers import SymbolSerializer, SymbolDetailSerializer, UnitSerializer, UnitDetailSerializer, SystemSerializer, SystemDetailSerializer,\
+					OriginSerializer, OriginDetailSerializer, SourceSerializer, SourceDetailSerializer
 
 from unit.models import Symbol, Unit, System
 
+from source.models import Origin, Source
 
 class ApiRoot(generics.GenericAPIView):
 	name = 'API Root'
@@ -19,6 +21,9 @@ class ApiRoot(generics.GenericAPIView):
 			'symbols': reverse('api:symbol-list', request=request),
 			'units': reverse('api:unit-list', request=request),
 			'systems': reverse('api:system-list', request=request),
+
+			'origns': reverse('api:origin-list', request=request),
+			'sources': reverse('api:source-list', request=request),
 		})
 
 
@@ -128,6 +133,58 @@ class SystemDetail(generics.RetrieveUpdateDestroyAPIView):
 	ordering_fields = ('name',)
 	filter_class = SystemFilter
 	permission_classes = [permissions.IsAuthenticated, IsAuthorOrReadOnly,]
+
+	def save(self, *args, **kwargs):
+		super().save(*args, **kwargs)
+
+
+class OriginList(generics.ListCreateAPIView):
+	queryset = Origin.objects.all()
+	serializer_class = OriginSerializer
+	name = 'Origin List'
+	pagination_class = None
+	search_fields = ('^name',)
+	ordering_fields = ('name',)
+	permission_classes = [permissions.IsAuthenticated,]
+
+	def save(self, *args, **kwargs):
+		super().save(*args, **kwargs)
+
+
+class OriginDetail(generics.RetrieveUpdateDestroyAPIView):
+	queryset = Origin.objects.all()
+	serializer_class = OriginDetailSerializer
+	name = 'Origin Detail'
+	lookup_field = 'pk'
+	search_fields = ('^name',)
+	ordering_fields = ('name',)
+	permission_classes = [permissions.IsAuthenticated,]
+
+	def save(self, *args, **kwargs):
+		super().save(*args, **kwargs)
+
+
+class SourceList(generics.ListCreateAPIView):
+	queryset = Source.objects.all()
+	serializer_class = SourceSerializer
+	name = 'Source List'
+	pagination_class = None
+	search_fields = ('^name',)
+	ordering_fields = ('name',)
+	permission_classes = [permissions.IsAuthenticated,]
+
+	def save(self, *args, **kwargs):
+		super().save(*args, **kwargs)
+
+
+class SourceDetail(generics.RetrieveUpdateDestroyAPIView):
+	queryset = Source.objects.all()
+	serializer_class = SourceDetailSerializer
+	name = 'Source Detail'
+	lookup_field = 'pk'
+	search_fields = ('^name',)
+	ordering_fields = ('name',)
+	permission_classes = [permissions.IsAuthenticated,]
 
 	def save(self, *args, **kwargs):
 		super().save(*args, **kwargs)

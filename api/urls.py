@@ -13,6 +13,11 @@ urlpatterns = [
 	path('units/<name>', views.UnitDetail.as_view(), name='unit-detail'),
 	path('systems/', views.SystemList.as_view(), name='system-list'),
 	path('systems/<name>', views.SystemDetail.as_view(), name='system-detail'),
+    
+	path('origins/', views.OriginList.as_view(), name='origin-list'),
+	path('origins/<int:pk>', views.OriginDetail.as_view(), name='origin-detail'),
+	path('sources/', views.SourceList.as_view(), name='source-list'),
+	path('sources/<int:pk>', views.SourceDetail.as_view(), name='source-detail'),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
