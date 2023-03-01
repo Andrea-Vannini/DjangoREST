@@ -9,6 +9,7 @@
 *.dat
 /.project
 static
+static/**
 **/media/*
 **/CACHEDIR.TAG
 **/flags/*
