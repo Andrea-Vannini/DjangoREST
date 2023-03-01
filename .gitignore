@@ -8,6 +8,7 @@
 *.7z
 *.dat
 /.project
+static
 **/media/*
 **/CACHEDIR.TAG
 **/flags/*
