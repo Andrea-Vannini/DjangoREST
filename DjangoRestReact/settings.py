@@ -23,6 +23,7 @@ STATIC_DIR = os.path.join(BASE_DIR, 'assets')
 MEDIA_DIR = os.path.join(BASE_DIR, 'media')
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -31,7 +32,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 SECRET_KEY = 'django-insecure-qc)ei@)6&wz^w@ik%@7jq&qzu@lxbpe+!-3(_6rio_jv4@fbw('
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 # Specify the allowed hosts for your application, or allow all wit the wildcard '*'
 ALLOWED_HOSTS = [
@@ -135,12 +136,12 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
+
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [STATIC_DIR, ]
 
-
-MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/media/'
+MEDIAFILES_DIRS = [MEDIA_DIR, ]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
