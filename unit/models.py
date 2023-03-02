@@ -8,10 +8,10 @@ class Symbol(models.Model):
 	author = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
 
 	class Meta:
-		verbose_name_plural = 'Units'
+		verbose_name_plural = 'Symbols'
 
 	def __str__(self):
-		return self.name
+		return self.symbol
 
 
 class Unit(models.Model):
