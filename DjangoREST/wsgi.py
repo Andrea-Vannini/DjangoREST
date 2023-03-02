@@ -1,5 +1,5 @@
 """
-WSGI config for DjangoRestReact project.
+WSGI config for DjangoRest project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'DjangoRestReact.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'DjangoRest.settings')
 
 application = get_wsgi_application()
