@@ -29,7 +29,3 @@ Some APIs, such as [SOAP](https://www.soapui.org/) or [XML-RPC](https://en.wikip
 - The calls and responses of data go through different layers. The client and server applications don't necessarily connect directly to each other, there may be a number of different intermediaries in the communication loop, therefore REST APIs need to be designed so that neither the client nor the server can tell whether it communicates with the end application or an intermediary.
 
 - REST APIs usually send static resources, but in certain cases, responses can also contain executable code (such as [Java applets](https://en.wikipedia.org/wiki/Java_applet)). In these cases, the code should only run on-demand.
-
-# DEVLOG
-	
-Note for future me: do a devlog
