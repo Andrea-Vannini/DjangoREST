@@ -10,3 +10,16 @@ class IsAuthorOrReadOnly(permissions.BasePermission):
 
 		# Write permissions are only allowed to the author of the snippet.
 		return obj.author == request.user
+
+
+class IsStaffOrReadOnly(permissions.BasePermission):
+	def has_permission(self, request, view):
+		# print(request.user, request.method)
+		if request.method in permissions.SAFE_METHODS:
+			# The method is a safe method
+			# print('safe')
+			return True
+		else:
+			# The method isn't a safe method
+			# Only owners are granted permissions for unsafe methods
+			return request.user.is_staff

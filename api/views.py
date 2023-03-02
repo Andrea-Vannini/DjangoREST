@@ -5,7 +5,7 @@ from rest_framework import generics
 from rest_framework.reverse import reverse
 from rest_framework.response import Response
 
-from api.permissions import IsAuthorOrReadOnly
+from api.permissions import IsAuthorOrReadOnly, IsStaffOrReadOnly
 from api.serializers import SymbolSerializer, SymbolDetailSerializer, UnitSerializer, UnitDetailSerializer, SystemSerializer, SystemDetailSerializer,\
 					OriginSerializer, OriginDetailSerializer, SourceSerializer, SourceDetailSerializer
 
@@ -145,7 +145,7 @@ class OriginList(generics.ListCreateAPIView):
 	pagination_class = None
 	search_fields = ('^name',)
 	ordering_fields = ('name',)
-	permission_classes = [permissions.IsAuthenticated,]
+	permission_classes = [permissions.IsAuthenticated, IsStaffOrReadOnly]
 
 	def save(self, *args, **kwargs):
 		super().save(*args, **kwargs)
@@ -158,7 +158,7 @@ class OriginDetail(generics.RetrieveUpdateDestroyAPIView):
 	lookup_field = 'pk'
 	search_fields = ('^name',)
 	ordering_fields = ('name',)
-	permission_classes = [permissions.IsAuthenticated,]
+	permission_classes = [permissions.IsAuthenticated, IsStaffOrReadOnly]
 
 	def save(self, *args, **kwargs):
 		super().save(*args, **kwargs)
@@ -171,7 +171,7 @@ class SourceList(generics.ListCreateAPIView):
 	pagination_class = None
 	search_fields = ('^name',)
 	ordering_fields = ('name',)
-	permission_classes = [permissions.IsAuthenticated,]
+	permission_classes = [permissions.IsAuthenticated, IsStaffOrReadOnly]
 
 	def save(self, *args, **kwargs):
 		super().save(*args, **kwargs)
@@ -184,7 +184,7 @@ class SourceDetail(generics.RetrieveUpdateDestroyAPIView):
 	lookup_field = 'pk'
 	search_fields = ('^name',)
 	ordering_fields = ('name',)
-	permission_classes = [permissions.IsAuthenticated,]
+	permission_classes = [permissions.IsAuthenticated, IsStaffOrReadOnly]
 
 	def save(self, *args, **kwargs):
 		super().save(*args, **kwargs)

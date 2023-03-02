@@ -16,9 +16,11 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 DB_DIR = Path(__file__).resolve().parent.parent
 
-
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
+
+# STATIC files are meant for css/images/javascript.
+# MEDIA files are meant for user-uploaded content.
 STATIC_DIR = os.path.join(BASE_DIR, 'assets')
 MEDIA_DIR = os.path.join(BASE_DIR, 'media')
 
@@ -36,7 +38,7 @@ DEBUG = False
 
 # Specify the allowed hosts for your application, or allow all wit the wildcard '*'
 ALLOWED_HOSTS = [
-    'localhost',
+    '*',
 ]
 
 
