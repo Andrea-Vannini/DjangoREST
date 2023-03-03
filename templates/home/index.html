@@ -7,7 +7,27 @@
 
 {% block body_block %}
 	<!-- Typing... -->
-	<a href="https://git.io/typing-svg">
-		<img src="{{ typing_svg_url }}" alt="Typing SVG" />
-	</a>
+	<img src="{{ typing_svg_url }}" alt="Typing SVG" />
+
+	<button type="button" class="btn btn-primary">I'm a bootstrap button!</button>
+
+	<button id="jquery-btn" type="button" class="btn btn-success">Click me, I'm powered by JQuery!</button>
+
+	<button class="my-btn" type="button" onclick="myfunc(this)">And I'm all home-made!</button>
+{% endblock %}
+
+{% block extrascripts %}
+	<script>
+		$('#jquery-btn').click(function() {
+			alert('You clicked me!');
+		});
+
+		function myfunc(button) {
+			alert("Hello!");
+			setAttributes(button, {
+				"class": "pastel-danger",
+			});
+		}
+		
+	</script>
 {% endblock %}
