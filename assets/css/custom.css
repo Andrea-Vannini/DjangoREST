@@ -2,34 +2,8 @@ body{
 	background-color: black;
 }
 
-.my-btn {
+h1{
 	color: white;
-	background-color: #ec7801;
-	border-color: #ec7801;
-	font-weight: bold;
-}
-.my-btn:hover {
-	color: white;
-	background-color: #c66601;
-	border-color: #c66601;
-}
-.my-btn:focus, .my-btn.focus {
-	box-shadow: 0 0 0 0.2rem rgba(236, 120, 1, 0.5);
-}
-.my-btn.disabled, .my-btn:disabled {
-	color: white;
-	background-color: #ec7801;
-	border-color: #ec7801;
-}
-.my-btn:not(:disabled):not(.disabled):active, .my-btn:not(:disabled):not(.disabled).active,
-.show > .my-btn.dropdown-toggle {
-	color: white;
-	background-color: #b97101;
-	border-color: #b97101;
-}
-.my-btn:not(:disabled):not(.disabled):active:focus, .my-btn:not(:disabled):not(.disabled).active:focus,
-.show > .my-btn.dropdown-toggle:focus {
-	box-shadow: 0 0 0 0.2rem rgba(236, 120, 1, 0.502);
 }
 
 .pastel-warning{

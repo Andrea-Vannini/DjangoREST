@@ -20,3 +20,10 @@ def home(request):
 
 	response = render(request, 'home/index.html', context=context_dict)
 	return response
+
+
+def resume(request):
+	context_dict = {}
+
+	response = render(request, 'home/resume.html', context=context_dict)
+	return response

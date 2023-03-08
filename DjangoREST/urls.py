@@ -14,6 +14,8 @@ urlpatterns = [
 	path('', views.index, name='home'),
 	path('api/', include('api.urls')),
     	path('admin/', admin.site.urls),
+      path('home/', include('home.urls')),
+      path('resume/', views.resume, name='resume'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += [
